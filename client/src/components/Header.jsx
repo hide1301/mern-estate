@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import icons from '../ultils/icons'
+import icons from '../utils/icons'
 
 const { FaSearch } = icons
 
