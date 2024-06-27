@@ -1,6 +1,6 @@
 import User from '../models/user.model.js'
 import bcryptjs from 'bcryptjs'
-import { errorHandler } from '../utils/error.js'
+import { errorHandler } from '../utils/errorHandler.js'
 
 export const test = (req, res) => {
     res.json({
@@ -13,9 +13,8 @@ export const updateUser = async (req, res, next) => {
         return next(errorHandler(401, 'You can only update your own account!'))
 
     try {
-        if (req.body.password) {
+        if (req.body.password)
             req.body.password = bcryptjs.hashSync(req.body.password, 10)
-        }
 
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
