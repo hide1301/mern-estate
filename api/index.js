@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import initRoutes from './routes/index.js'
+import cookieParser from 'cookie-parser'
 dotenv.config()
 
 mongoose
@@ -14,7 +15,10 @@ mongoose
     })
 
 const app = express()
+
 app.use(express.json())
+app.use(cookieParser())
+
 initRoutes(app)
 
 app.use((err, req, res, next) => {

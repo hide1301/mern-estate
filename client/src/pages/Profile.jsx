@@ -2,9 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
-    getDownloadURL,
-    getStorage,
     ref,
+    getStorage,
+    getDownloadURL,
     uploadBytesResumable,
 } from 'firebase/storage'
 import { app } from '../firebase'
