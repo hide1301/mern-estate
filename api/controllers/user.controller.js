@@ -29,7 +29,7 @@ export const updateUser = async (req, res, next) => {
             { new: true }
         )
 
-        const { password, ...rest } = updatedUser._doc
+        const { password, createdAt, updatedAt, ...rest } = updatedUser._doc
         res.status(200).json(rest)
     } catch (error) {
         next(error)
