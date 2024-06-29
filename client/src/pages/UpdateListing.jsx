@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage'
 import { app } from '../firebase'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -81,7 +86,8 @@ export default function CreateListing() {
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           console.log(`Upload is ${progress}% done`)
         },
         (error) => {
@@ -111,14 +117,22 @@ export default function CreateListing() {
       })
     }
 
-    if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer') {
+    if (
+      e.target.id === 'parking' ||
+      e.target.id === 'furnished' ||
+      e.target.id === 'offer'
+    ) {
       setFormData({
         ...formData,
         [e.target.id]: e.target.checked,
       })
     }
 
-    if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea') {
+    if (
+      e.target.type === 'number' ||
+      e.target.type === 'text' ||
+      e.target.type === 'textarea'
+    ) {
       setFormData({
         ...formData,
         [e.target.id]: e.target.value,
@@ -129,7 +143,8 @@ export default function CreateListing() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      if (formData.imageUrls.length < 1) return setError('You must upload at least one image')
+      if (formData.imageUrls.length < 1)
+        return setError('You must upload at least one image')
       if (+formData.regularPrice < +formData.discountPrice)
         return setError('Discount price must be lower than regular price')
       setLoading(true)
@@ -157,7 +172,9 @@ export default function CreateListing() {
   }
   return (
     <main className="p-3 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-semibold text-center my-7">Update a Listing</h1>
+      <h1 className="text-3xl font-semibold text-center my-7">
+        Update a Listing
+      </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
           <input
@@ -211,7 +228,13 @@ export default function CreateListing() {
               <span>Rent</span>
             </div>
             <div className="flex gap-2">
-              <input type="checkbox" id="parking" className="w-5" onChange={handleChange} checked={formData.parking} />
+              <input
+                type="checkbox"
+                id="parking"
+                className="w-5"
+                onChange={handleChange}
+                checked={formData.parking}
+              />
               <span>Parking spot</span>
             </div>
             <div className="flex gap-2">
@@ -225,7 +248,13 @@ export default function CreateListing() {
               <span>Furnished</span>
             </div>
             <div className="flex gap-2">
-              <input type="checkbox" id="offer" className="w-5" onChange={handleChange} checked={formData.offer} />
+              <input
+                type="checkbox"
+                id="offer"
+                className="w-5"
+                onChange={handleChange}
+                checked={formData.offer}
+              />
               <span>Offer</span>
             </div>
           </div>
@@ -269,7 +298,9 @@ export default function CreateListing() {
               />
               <div className="flex flex-col items-center">
                 <p>Regular price</p>
-                {formData.type === 'rent' && <span className="text-xs">($ / month)</span>}
+                {formData.type === 'rent' && (
+                  <span className="text-xs">($ / month)</span>
+                )}
               </div>
             </div>
             {formData.offer && (
@@ -286,7 +317,9 @@ export default function CreateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted price</p>
-                  {formData.type === 'rent' && <span className="text-xs">($ / month)</span>}
+                  {formData.type === 'rent' && (
+                    <span className="text-xs">($ / month)</span>
+                  )}
                 </div>
               </div>
             )}
@@ -295,7 +328,9 @@ export default function CreateListing() {
         <div className="flex flex-col flex-1 gap-4">
           <p className="font-semibold">
             Images:
-            <span className="font-normal text-gray-600 ml-2">The first image will be the cover (max 6)</span>
+            <span className="font-normal text-gray-600 ml-2">
+              The first image will be the cover (max 6)
+            </span>
           </p>
           <div className="flex gap-4">
             <input
@@ -315,11 +350,20 @@ export default function CreateListing() {
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
           </div>
-          <p className="text-red-700 text-sm">{imageUploadError && imageUploadError}</p>
+          <p className="text-red-700 text-sm">
+            {imageUploadError && imageUploadError}
+          </p>
           {formData.imageUrls.length > 0 &&
             formData.imageUrls.map((url, index) => (
-              <div key={url} className="flex justify-between p-3 border items-center">
-                <img src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
+              <div
+                key={url}
+                className="flex justify-between p-3 border items-center"
+              >
+                <img
+                  src={url}
+                  alt="listing image"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
                 <button
                   type="button"
                   onClick={() => handleRemoveImage(index)}
