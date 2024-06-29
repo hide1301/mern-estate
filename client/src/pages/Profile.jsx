@@ -70,7 +70,7 @@ export default function Profile() {
         body: JSON.stringify(formData),
       })
       const data = await res.json()
-      if (data.success === false) {
+      if (!data.success) {
         dispatch(updateUserFailure(data.message))
         return
       }
@@ -88,7 +88,7 @@ export default function Profile() {
         method: 'DELETE',
       })
       const data = await res.json()
-      if (data.success === false) {
+      if (!data.success) {
         dispatch(deleteUserFailure(data.message))
         return
       }
@@ -103,7 +103,7 @@ export default function Profile() {
       dispatch(signOutStart())
       const res = await fetch('/api/auth/signout')
       const data = await res.json()
-      if (data.success === false) {
+      if (!data.success) {
         dispatch(signOutFailure(data.message))
         return
       }
