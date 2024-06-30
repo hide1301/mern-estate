@@ -22,6 +22,10 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
+app.listen(3000, () => {
+  console.log('Server is running on port 3000')
+})
+
 initRoutes(app)
 
 app.use(express.static(path.join(__dirname, '/client/dist')))
@@ -38,8 +42,4 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   })
-})
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000')
 })
