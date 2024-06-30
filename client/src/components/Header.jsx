@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import icons from '../utils/icons'
 
 const { FaSearch } = icons
@@ -9,7 +10,6 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
-  const location = useLocation()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -25,12 +25,10 @@ export default function Header() {
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl)
     }
-  }, [])
+  }, [location.search])
 
   useEffect(() => {
-    if (location.pathname !== '/search') {
-      setSearchTerm('')
-    }
+    if (!location.pathname.includes('/search')) setSearchTerm('')
   }, [location.pathname])
 
   return (
